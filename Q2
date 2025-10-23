@@ -1,0 +1,54 @@
+#include <iostream>
+#include<iomanip>
+using namespace std;
+struct Marks{
+    float math;
+    float science;
+    float english;
+};
+struct Student{
+    int rollNo;
+    string name;
+    Marks marks;
+    float average;
+};
+int main(){
+    Student students[5];
+    for( int i=0;i<5;++i){
+        cout<<i+1<<endl;
+        cout <<"Rollno";
+        cin>>students[i].rollNo;
+        cout<<"name";
+        cin>>students[i].name;
+        cout<<"marks in math";
+        cin>>students[i].marks.math;
+        cout<<"marks in sciece";
+        cin>>students[i].marks.science;
+        cout<<"marks in english";
+        cin>>students[i].marks .english;
+        students[i].average=
+       ( students[i].marks.math+students[i].marks.science+ students[i].marks.english)/3.0f;
+    }
+    int idmax=0;int idmin=0;
+    for(int i=0;i<5;++i){
+        if(students[i].average>students[idmax].average)
+        idmax=i;
+        if(students[i].average<students[idmin].average)
+        idmin=i;
+        
+    }
+    cout<<fixed<<setprecision(2)<<endl;
+    cout<<"n results:"<<endl;
+    cout <<"students with highest avearge"<<endl;
+    cout<<"rollno:"<<students[idmax].rollNo<<endl;
+    cout<<"name:"<<students[idmax].name<<endl;
+    cout<<"average"<<students[idmax].average<<endl;
+    
+    cout<<"students with lowest average"<<endl;
+    cout<<"rollno:"<<students[idmin].rollNo<<endl;
+    cout<<"name:"<<students[idmin].name<<endl;
+    cout<<"average:"<<students[idmin].average<<endl;
+
+
+return 0;
+}
