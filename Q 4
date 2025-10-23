@@ -1,0 +1,87 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+
+struct SalesRecord {
+    string month;
+    float amount;
+};
+
+
+void writeToFile(SalesRecord records[], int n, const string& filename) {
+    ofstream file(filename);
+    if (file.is_open()) {
+        for (int i = 0; i < n; i++) {
+            file << records[i].month << " " << records[i].amount << endl;
+        }
+        file.close();
+        cout << "Data written to file " << filename << " successfully!" << endl;
+    } else {
+        cout << "Unable to open file for writing!" << endl;
+    }
+}
+
+
+void readFromFile(SalesRecord records[], int n, const string& filename) {
+    ifstream file(filename);
+    if (file.is_open()) {
+        for (int i = 0; i < n; i++) {
+            file >> records[i].month >> records[i].amount;
+        }
+        file.close();
+        cout << "Data read from file " << filename << " successfully!" << endl;
+    } else {
+        cout << "Unable to open file for reading!" << endl;
+}
+}
+float calculateYearlyAverage(SalesRecord records[], int n) {
+    float totalSales = 0;
+    for (int i = 0; i < n; i++) {
+        totalSales += records[i].amount;
+    }
+    return totalSales / n;
+}
+
+
+void displayAboveAverageMonths(SalesRecord records[], int n, float average) {
+    bool found = false;
+    cout << "\nMonths with sales above the yearly average of ₹" << average << ":" << endl;
+    for (int i = 0; i < n; i++) {
+        if (records[i].amount > average) {
+            cout << records[i].month << " - ₹" << records[i].amount << endl;
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "No months have sales above the yearly average." << endl;
+    }
+}
+
+int main() {
+    SalesRecord records[12];
+    int n = 12;  
+    cout << "Enter sales data for the 12 months:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "Enter the month name (e.g., January): ";
+        cin >> records[i].month;
+        cout << "Enter the sales amount for " << records[i].month << ": ₹";
+        cin >> records[i].amount;
+    }
+
+    
+    writeToFile(records, n, "sales_data.txt");
+
+    
+    readFromFile(records, n, "sales_data.txt");
+
+    
+    float average = calculateYearlyAverage(records, n);
+    cout << "\nYearly Average Sales: ₹" << average << endl;
+
+    
+    displayAboveAverageMonths(records, n, average);
+
+    return 0;
+}
