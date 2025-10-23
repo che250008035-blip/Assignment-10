@@ -1,0 +1,38 @@
+#include <iostream>
+#include<iomanip>
+using namespace std;
+struct item{
+    int id;
+    string name;
+    float cost;
+};
+int main(){
+item items[8];
+float totalcost=0;
+cout<<"Enter details of 8 elements."<<endl;
+for(int i=0;i<8;i++){
+    cout<<i+1<<endl;
+    cin>>items[i].id>>items[i].name>>items[i].cost;
+    totalcost+=items[i].cost;
+}
+for(int i=0;i<7;i++){
+    for(int j=i+1;j<8;j++){
+        if(items[i].cost<items[j].cost){
+            swap(items[i],items[j]);
+        }
+    }
+}
+cout<<left<<setw(10)<<"id"<<setw(15)<<"name"<<setw(10)<<"cost"<<endl;
+for(int i=0;i<8;i++){
+    cout<<left<<setw(10)<<items[i].id
+    <<setw(15)<<items[i].name
+    <<setw(10)<<fixed<<setprecision(2)<<items[i].cost<<endl;
+    
+}
+
+float averagecost=totalcost/8;
+cout<<"average cost="<<fixed<<setprecision(2)<<averagecost<<endl;
+
+
+    return 0;
+}
