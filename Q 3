@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Employee {
+    int id;
+    string name;
+    float salary;
+};
+
+void displayAllEmployees(Employee emp[], int n) {
+    cout << "Employee Details:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "ID: " << emp[i].id << ", Name: " << emp[i].name << ", Salary: ₹" << emp[i].salary << endl;
+    }
+}
+
+void searchEmployeeById(Employee emp[], int n, int searchId) {
+    bool found = false;
+    for (int i = 0; i < n; i++) {
+        if (emp[i].id == searchId) {
+            cout << "Employee Found!" << endl;
+            cout << "ID: " << emp[i].id << ", Name: " << emp[i].name << ", Salary: ₹" << emp[i].salary << endl;
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "Employee with ID " << searchId << " not found." << endl;
+    }
+}
+
+void increaseSalary(Employee emp[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (emp[i].salary < 30000) {
+            emp[i].salary += emp[i].salary * 0.10;  // Increase salary by 10%
+        }
+    }
+    cout << "Salaries updated for employees earning less than ₹30,000." << endl;
+}
+
+int main() {
+    Employee emp[10];
+    int n = 10;  // Number of employees
+
+    // Reading employee details
+    cout << "Enter details of 10 employees:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "Enter ID for employee " << i + 1 << ": ";
+        cin >> emp[i].id;
+        cin.ignore();  // To ignore the newline character left by cin
+        cout << "Enter Name for employee " << i + 1 << ": ";
+        getline(cin, emp[i].name);
+        cout << "Enter Salary for employee " << i + 1 << ": ₹";
+        cin >> emp[i].salary;
+    }
+
+    int choice;
+    do {
+        // Displaying menu
+        cout << "\nMenu:" << endl;
+        cout << "1. Display all employee details" << endl;
+        cout << "2. Search for an employee by ID" << endl;
+        cout << "3. Increase salary for employees earning less than ₹30,000 by 10%" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                displayAllEmployees(emp, n);
+                break;
+            case 2: {
+                int searchId;
+                cout << "Enter employee ID to search: ";
+                cin >> searchId;
+                searchEmployeeById(emp, n, searchId);
+                break;
+            }
+            case 3:
+                increaseSalary(emp, n);
+                break;
+            case 4:
+                cout << "Exiting program." << endl;
+                break;
+            default:
+                cout << "Invalid choice, please try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
